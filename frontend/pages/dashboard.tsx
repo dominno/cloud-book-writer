@@ -65,9 +65,9 @@ const DashboardPage: NextPage = () => {
         <SectionForm title="" content="" parent={null} onSave={async (title: string, content: string) => {}} />
 
         <div className="mt-6 w-full">
-        {sections.map((section) => (
+        {sections && sections.length > 0 ? sections.map((section) => (
           <Section key={section.section.id} {...section} onClick={() => handleSectionClick(section.section.id)} />
-        ))}
+        )) : null}
         </div>
 
         <Button size="sm" variant="shadow" onClick={handlePrevPage}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Textarea } from '@nextui-org/react';
-import axios from 'axios';
+import { createSection, updateSection } from '../utils/api';
 
 interface ISectionFormProps {
   id?: number;
@@ -28,10 +28,23 @@ const SectionForm: React.FC<ISectionFormProps> = ({ id, title: initialTitle, con
 
     if (id) {
       try {
-        await axios.put(`${API_URL}/api/sections/${id}/`, {
+        await updateSection(id, {
           title,
           content,
-          parent,
+          parent_seection: parent,
+          collaborators: []
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      try {
+        await createSection({
+          title,
+          content,
+          parent_seection: null,
+          root: true,
+          collaborators: []
         });
       } catch (error) {
         console.error(error);

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { NextRouter } from 'next/router';
 
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://127.0.0.1:8000';
 
 export const loginUser = async (userData: { username: string, password: string }) => {
   try {

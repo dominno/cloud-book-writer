@@ -1,76 +1,45 @@
-
 import React, { useState } from 'react';
-import { NextPage } from 'next';
+import { loginUser } from '../utils/auth';
 import { useRouter } from 'next/router';
-import { Button, Input } from '@nextui-org/react';
-import { loginUser } from '../utils/api';
-import { useForm } from 'react-hook-form';
-import { Controller } from 'react-hook-form';
 
-interface IFormInput {
-  username: string;
-  password: string;
-}
-
-const LoginPage: NextPage = () => {
-  const { register, handleSubmit, formState, control } = useForm<IFormInput>();
-  const { errors } = formState;
-  const [loading, setLoading] = useState(false);
+const LoginPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const onSubmit = async (data: IFormInput) => {
-    setLoading(true);
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      await loginUser(data);
-      router.push('/dashboard');
+      const userData = { username, password };
+      const response = await loginUser(userData);
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+        router.push('/dashboard')
+      }
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h3>Login</h3>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-1/3 mt-4">
-      <Controller
-        name="username"
-        control={control} // control is from useForm
-        rules={{ required: true }}
-        render={({ field }) => (
-          <Input
-            {...field}
-            placeholder="Username"      
-          />
-        )}
-      />
-        {errors.username && <span>This field is required</span>}
-        <Controller
-          name="password"
-          control={control} // control is from useForm
-          rules={{ required: true }}
-          render={({ field }) => (
-            <Input
-              {...field}
-              placeholder="password"
-
-            />
-          )}
+    <div>
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        {errors.password && <span>This field is required</span>}
-        <Button          
-          size="lg"
-          type="button"
-          className="mt-4"
-          isLoading={loading}
-        >
-          Login
-        </Button>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
       </form>
     </div>
   );
 };
 
 export default LoginPage;
-

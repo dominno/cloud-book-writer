@@ -47,8 +47,6 @@ class LocalCloudStorageBackend:
         os.makedirs(os.path.join(settings.MEDIA_ROOT, folder_path), exist_ok=True)
         with open(os.path.join(settings.MEDIA_ROOT, folder_path, 'content.txt'), 'w') as f:
             f.write(content)
-        import pdb
-        pdb.set_trace()
         return os.path.join(settings.MEDIA_ROOT, folder_path, 'content.txt')
 
     def delete_folder(self, folder_path):

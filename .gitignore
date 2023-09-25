@@ -1,0 +1,21 @@
+# .gitignore
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore logs
+*.log
+
+# Ignore the build directory
+dist/
+
+# Ignore .env files as they usually contain sensitive information
+.env
+*.pyc
+
+# Ignore IDE specific files
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo

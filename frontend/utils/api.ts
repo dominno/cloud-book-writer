@@ -21,8 +21,11 @@ export const loginUser = async (userData) => {
 };
 
 export const createSection = async (sectionData) => {
+  const headers = {
+    "Authorization": "Token " + localStorage.getItem('token')
+  };
   try {
-    const response = await axios.post(`${API_URL}/sections/`, sectionData);
+    const response = await axios.post(`${API_URL}/sections/`, sectionData, { headers });
     return response.data;
   } catch (error) {
     throw error;
@@ -30,8 +33,11 @@ export const createSection = async (sectionData) => {
 };
 
 export const getSection = async (sectionId) => {
+  const headers = {
+    "Authorization": "Token " + localStorage.getItem('token')
+  };
   try {
-    const response = await axios.get(`${API_URL}/sections/${sectionId}/`);
+    const response = await axios.get(`${API_URL}/sections/${sectionId}/`, { headers });
     return response.data;
   } catch (error) {
     throw error;
@@ -39,8 +45,11 @@ export const getSection = async (sectionId) => {
 };
 
 export const updateSection = async (sectionId, sectionData) => {
+  const headers = {
+    "Authorization": "Token " + localStorage.getItem('token')
+  };
   try {
-    const response = await axios.put(`${API_URL}/sections/${sectionId}/`, sectionData);
+    const response = await axios.put(`${API_URL}/sections/${sectionId}/`, sectionData, { headers });
     return response.data;
   } catch (error) {
     throw error;
@@ -48,8 +57,11 @@ export const updateSection = async (sectionId, sectionData) => {
 };
 
 export const deleteSection = async (sectionId) => {
+  const headers = {
+    "Authorization": "Token " + localStorage.getItem('token')
+  };
   try {
-    const response = await axios.delete(`${API_URL}/sections/${sectionId}/`);
+    const response = await axios.delete(`${API_URL}/sections/${sectionId}/`, { headers });
     return response.data;
   } catch (error) {
     throw error;
@@ -57,8 +69,11 @@ export const deleteSection = async (sectionId) => {
 };
 
 export const getRootSections = async (page) => {
+  const headers = {
+    "Authorization": "Token " + localStorage.getItem('token')
+  };
   try {
-    const response = await axios.get(`${API_URL}/sections/root_list/?page=${page}`);
+    const response = await axios.get(`${API_URL}/sections/root_list/?page=${page}`, { headers });
     return response.data;
   } catch (error) {
     throw error;

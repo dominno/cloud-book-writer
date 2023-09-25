@@ -1,15 +1,13 @@
-// pages/_app.js
-import {NextUIProvider} from '@nextui-org/react'
+// pages/_app.js 
+import {NextUIProvider} from '@nextui-org/react' 
 import React from 'react';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) { 
   return (
-    <React.StrictMode>
-      <NextUIProvider>
-        <Component {...pageProps} />
-      </NextUIProvider>
-    </React.StrictMode>
+    <NextUIProvider>
+      <Component {...pageProps} />
+    </NextUIProvider>
   )
-}
+} 
 
 export default MyApp;
