@@ -56,64 +56,93 @@ The backend of the application is built using Django, a high-level Python web fr
 
 4. To run the tests, execute `npm test` in your terminal/command prompt.
 
-# API Documentation
+## API Documentation
 
-User Registration
-Endpoint: /register/
-Method: POST
-Data Parameters: 
+### User Registration
+
+**Endpoint:** `/register/`
+
+**Method:** `POST`
+
+**Data Parameters:** 
+```json
 {
     "username": "<username>",
     "password": "<password>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "token": "<token>"
 }
+```
 This endpoint allows a new user to register. The username and password should be sent in the request body. If the registration is successful, a token will be returned in the response.
 
-User Login
-Endpoint: /login/
-Method: POST
-Data Parameters: 
+### User Login
+
+**Endpoint:** `/login/`
+
+**Method:** `POST`
+
+**Data Parameters:** 
+```json
 {
     "username": "<username>",
     "password": "<password>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "token": "<token>"
 }
+```
 This endpoint allows a user to log in. The username and password should be sent in the request body. If the login is successful, a token will be returned in the response.
 
-Create a New Section
-Endpoint: /api/sections/
-Method: POST
-Headers: 
+### Create a New Section
+
+**Endpoint:** `/api/sections/`
+
+**Method:** `POST`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Data Parameters: 
+```
+**Data Parameters:** 
+```json
 {
     "title": "<title>",
     "root": "<true/false>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "id": "<section_id>",
     "title": "<title>",
     "root": "<true/false>"
 }
+```
 This endpoint allows a user to create a new section. The title and root status should be sent in the request body. The user's token should be included in the Authorization header.
 
-Retrieve a Section
-Endpoint: /api/sections/<section_id>/
-Method: GET
-Headers: 
+### Retrieve a Section
+
+**Endpoint:** `/api/sections/<section_id>/`
+
+**Method:** `GET`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "id": "<section_id>",
     "title": "<title>",
@@ -130,71 +159,103 @@ Response:
     ],
     "content": "<section_content>"
 }
+```
 This endpoint allows a user to retrieve a section. The section ID should be included in the URL. The user's token should be included in the Authorization header.
 
-Update a Section
-Endpoint: /api/sections/<section_id>/
-Method: PUT
-Headers: 
+### Update a Section
+
+**Endpoint:** `/api/sections/<section_id>/`
+
+**Method:** `PUT`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Data Parameters: 
+```
+**Data Parameters:** 
+```json
 {
     "title": "<new_title>",
     "root": "<true/false>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "id": "<section_id>",
     "title": "<new_title>",
     "root": "<true/false>"
 }
+```
 This endpoint allows a user to update a section. The new title and root status should be sent in the request body. The section ID should be included in the URL. The user's token should be included in the Authorization header.
 
-Delete a Section
-Endpoint: /api/sections/<section_id>/
-Method: DELETE
-Headers: 
+### Delete a Section
+
+**Endpoint:** `/api/sections/<section_id>/`
+
+**Method:** `DELETE`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "detail": "Section deleted."
 }
+```
 This endpoint allows a user to delete a section. The section ID should be included in the URL. The user's token should be included in the Authorization header.
 
-Create a Nested Section
-Endpoint: /api/sections/
-Method: POST
-Headers: 
+### Create a Nested Section
+
+**Endpoint:** `/api/sections/`
+
+**Method:** `POST`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Data Parameters: 
+```
+**Data Parameters:** 
+```json
 {
     "title": "<title>",
     "root": false,
     "parent_section": "<parent_section_id>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "id": "<section_id>",
     "title": "<title>",
     "root": false,
     "parent_section": "<parent_section_id>"
 }
+```
 This endpoint allows a user to create a new nested section under an existing section. The title should be sent in the request body. The root status should be set to false. The ID of the parent section should be included in the parent_section field. The user's token should be included in the Authorization header.
 
-Retrieve All Sections
-Endpoint: /api/sections/
-Method: GET
-Headers: 
+### Retrieve All Sections
+
+**Endpoint:** `/api/sections/`
+
+**Method:** `GET`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "count": <total_number_of_sections>,
     "next": <URL_of_next_page>,
@@ -219,16 +280,23 @@ Response:
         ...
     ]
 }
+```
 This endpoint allows a user to retrieve all sections along with their nested sections. The user's token should be included in the Authorization header. The response includes pagination details. The count field indicates the total number of sections. The next and previous fields provide the URLs of the next and previous pages respectively. The results field contains the list of sections for the current page.
 
-Retrieve Root Sections Only
-Endpoint: /api/sections/root_list/
-Method: GET
-Headers: 
+### Retrieve Root Sections Only(books)
+
+**Endpoint:** `/api/sections/root_list/`
+
+**Method:** `GET`
+
+**Headers:** 
+```json
 {
     "Authorization": "Token <token>"
 }
-Response: 
+```
+**Response:** 
+```json
 {
     "count": <total_number_of_root_sections>,
     "next": <URL_of_next_page>,
@@ -253,68 +321,6 @@ Response:
         ...
     ]
 }
-This endpoint allows a user to retrieve only the root sections along with their nested sections. The user's token should be included in the Authorization header. The response includes pagination details. The count field indicates the total number of root sections. The next and previous fields provide the URLs of the next and previous pages respectively. The results field contains the list of lts field contains the list of
-
-Response: 
-{
-    "count": <total_number_of_sections>,
-    "next": <URL_of_next_page>,
-    "previous": <URL_of_previous_page>,
-    "results": [
-        {
-            "id": "<section_id>",
-            "title": "<title>",
-            "root": "<true/false>",
-            "nested_sections": [
-                {
-                    "id": "<nested_section_id>",
-                    "title": "<nested_section_title>",
-                    "root": false,
-                    "parent_section": "<parent_section_id>",
-                    "content": "<nested_section_content>"
-                },
-                ...
-            ],
-            "content": "<section_content>"
-        },
-        ...
-    ]
-}
-This endpoint allows a user to retrieve all sections along with their nested sections. The user's token should be included in the Authorization header. The response includes pagination details. The count field indicates the total number of sections. The next and previous fields provide the URLs of the next and previous pages respectively. The results field contains the list of sections for the current page.
-
-## Retrieve Root Sections Only(books)
-
-Endpoint: /api/sections/root_list/
-Method: GET
-Headers: 
-{
-    "Authorization": "Token <token>"
-}
-Response: 
-{
-    "count": <total_number_of_root_sections>,
-    "next": <URL_of_next_page>,
-    "previous": <URL_of_previous_page>,
-    "results": [
-        {
-            "id": "<section_id>",
-            "title": "<title>",
-            "root": true,
-            "nested_sections": [
-                {
-                    "id": "<nested_section_id>",
-                    "title": "<nested_section_title>",
-                    "root": false,
-                    "parent_section": "<parent_section_id>",
-                    "content": "<nested_section_content>"
-                },
-                ...
-            ],
-            "content": "<section_content>"
-        },
-        ...
-    ]
-}
+```
 This endpoint allows a user to retrieve only the root sections along with their nested sections. The user's token should be included in the Authorization header. The response includes pagination details. The count field indicates the total number of root sections. The next and previous fields provide the URLs of the next and previous pages respectively. The results field contains the list of root sections for the current page.
-
 
