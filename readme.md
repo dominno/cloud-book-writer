@@ -1,6 +1,10 @@
 The backend of the application is built using Django, a high-level Python web framework, and Django Rest Framework, a powerful and flexible toolkit for building Web APIs. Here's a high-level overview of how the backend is structured and built:
 
 1. Models: The Section model is defined in sections/models.py. It represents a section of a book and has fields such as title, author, parent_section, and root. The parent_section field is a foreign key to the Section model itself, allowing for the creation of nested sections. The root field is a boolean field that indicates whether the section is the root section of a book.
+ - A book is represented as a Section object with root=True.
+ - Users can create an unlimited number of sections within a book.
+ - Users can create multiple subsections within each section, and further child subsections within those, to any level of nesting.
+ - Section hierarchy can be read from the root element to bottom elements. Titles are stored in the database, content is stored in the cloud storage in a nested structure.
 
 2. Views: The views are defined in sections/views.py. They handle the creation, retrieval, and modification of sections. The views use Django Rest Framework's viewsets and serializers to handle HTTP requests and responses. The views also handle user authentication and permissions.
 
