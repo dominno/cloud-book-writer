@@ -12,29 +12,37 @@ interface ISectionProps {
     title: string;
     content: string;
     parent: number | null;
-    children: ISectionProps[];
+    nested_sections: ISectionProps[];
   };
   onClick: () => void;
 }
 
 const DashboardPage: NextPage = () => {
   const [sections, setSections] = useState<ISectionProps[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSection, setCurrentSection] = useState<number | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchSections = async () => {
+      setIsLoading(true);
       try {
         const response = await getRootSections(currentPage);
-        setSections(response.data);
+        setSections(response);
       } catch (error) {
         console.error(error);
       }
+      setIsLoading(false);
     };
 
     fetchSections();
   }, [currentPage, currentSection]);
+
+  useEffect(() => {
+    console.log("sections", sections);
+    setSections(sections);
+  }, [sections]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -64,11 +72,33 @@ const DashboardPage: NextPage = () => {
 
         <SectionForm title="" content="" parent={null} onSave={async (title: string, content: string) => {}} />
 
-        <div className="mt-6 w-full">
-        {sections && sections.length > 0 ? sections.map((section) => (
-          <Section key={section.section.id} {...section} onClick={() => handleSectionClick(section.section.id)} />
-        )) : null}
-        </div>
+        {isLoading ? (
+      <p>Loading...</p>
+        ) : (
+          <div className="mt-6 w-full">
+            <p>Sections</p>
+            {sections && sections.length > 0 ? (
+              sections.map((section) => {
+                var sec_obj = {section: section};
+                console.log("Rendering section:", section.id); // Log each section before it's rendered
+                return (
+                  <Section 
+                    key={section.id},
+                    section={
+                      id:section.id,
+                      title:section.title,
+                      content:section.content,
+                      parent:section.parent,
+                      author:section.author,
+                      children:section.nested_sections
+                    },
+                    onClick={() => handleSectionClick(section.id)} 
+                  />
+                );
+              })
+            ) : "None"}
+          </div>
+        )}
 
         <Button size="sm" variant="shadow" onClick={handlePrevPage}>
           Previous Page

@@ -13,7 +13,6 @@ interface ISectionFormProps {
 const SectionForm: React.FC<ISectionFormProps> = ({ id, title: initialTitle, content: initialContent, parent, onSave }) => {
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
-  const API_URL = process.env.API_URL || 'http://127.0.0.1:8000/';
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
